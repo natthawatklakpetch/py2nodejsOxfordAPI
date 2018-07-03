@@ -28,28 +28,34 @@ http.createServer(function(req, res) {
         }
         checkResult = stdout;
         console.log(`result in exe ${checkResult}`);
+        callback();
       });
     }
 
-    var path = url.parse(req.url, true);
-    var filename = "." + path.pathname;
-    var filename = `.${path.pathname}`;
-    fs.readFile(filename, 'utf-8', function(err, data) {
-      if (err) {
-        res.writeHead(404, {
+    function callback() {
+      var path = url.parse(req.url, true);
+      var filename = "." + path.pathname;
+      var filename = `.${path.pathname}`;
+      fs.readFile(filename, 'utf-8', function(err, data) {
+        if (err) {
+          res.writeHead(404, {
+            'Content-Type': 'text/html'
+          });
+          return res.end("service list = {sha256}");
+        }
+        res.writeHead(200, {
           'Content-Type': 'text/html'
         });
-        return res.end("service list = {sha256}");
-      }
-      res.writeHead(200, {
-        'Content-Type': 'text/html'
-      });
 
-      var renderedHtml = ejs.render(data, {checkResult: checkResult});
-      console.log(`result in readFile ${checkResult}`);
-      // res.write(data);
-      return res.end(renderedHtml);
-    });
+        var renderedHtml = ejs.render(data, {
+          checkResult: checkResult,
+          word: q.word
+        });
+        console.log(`result in readFile ${checkResult}`);
+        // res.write(data);
+        return res.end(renderedHtml);
+      });
+    }
 
   } else if (fullUrl.pathname == '/fileupload') { ////////////////////////////////////////////////
 
