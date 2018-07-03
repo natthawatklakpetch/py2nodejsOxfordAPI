@@ -3,102 +3,24 @@
 
 <head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      // var json = require('./info.json');
-    });
-  </script>
 </head>
 
 <body>
   <h1>Crossword check</h1>
   <form id="searchform">
     Type in the word<br>
-    <input type="text" name="word" value="Example">
+    <input type="text" name="word" value="<%= word %>">
     <br>
     <input type="submit" value="Check it!">
   </form>
-  <div id="result">result go here <%= checkResult %> </div>
+  <div id="result">Result holder</div>
   <script>
-
-    // $("#searchform").click(_ => {
-    //   const getFormValues = formId => {
-    //     let values = {};
-    //     $.each($(`#${formId}`).serializeArray(), (i, field) => values[field.name] = field.value);
-    //     return values;
-    //   }
-    //
-    //   let values = getFormValues('searchform');
-    //   console.log(values);
-    //   window.location.href = 'http://sidanmor.com';
-    // });
-
-    // $.ajax({
-    //   url: `https://od-api.oxforddictionaries.com:443/api/v1/inflections/en/${values.word}`,
-    //   headers: {
-    //     "Accept": "application/json",
-    //     "app_id": "76fe7e76",
-    //     "app_key": "c307519ca3eef8e4e69998b17073bf30"
-    //   },
-    //   type: "GET",
-    //   // jsonp: "callback",
-    //   dataType: "jsonp",
-    //   success: function() {
-    //     alert('Success!' + authHeader);
-    //   }
-    // });
-
-
-    // Create the XHR object.
-    // function createCORSRequest(method, url) {
-    //   var xhr = new XMLHttpRequest();
-    //   if ("withCredentials" in xhr) {
-    //     // XHR for Chrome/Firefox/Opera/Safari.
-    //     xhr.open(method, url, true);
-    //   } else if (typeof XDomainRequest != "undefined") {
-    //     // XDomainRequest for IE.
-    //     xhr = new XDomainRequest();
-    //     xhr.open(method, url);
-    //   } else {
-    //     // CORS not supported.
-    //     xhr = null;
-    //   }
-    //   return xhr;
-    // }
-
-    // Helper method to parse the title tag from the response.
-    // function getTitle(text) {
-    //   return text.match('<title>(.*)?</title>')[1];
-    // }
-
-    // Make the actual CORS request.
-    // function makeCorsRequest() {
-    //   // This is a sample server that supports CORS.
-    //   var url = 'https://od-api.oxforddictionaries.com:443/api/v1/inflections/en/swimming';
-    //   document.cookie = `"Accept": "application/json"`;
-    //   document.cookie = `"app_id": "76fe7e76"`;
-    //   document.cookie = `"app_key": "c307519ca3eef8e4e69998b17073bf30"`;
-    //
-    //   var xhr = createCORSRequest('GET', url);
-    //   if (!xhr) {
-    //     alert('CORS not supported');
-    //     return;
-    //   }
-    //   xhr.withCredentials = true;
-    //   // Response handlers.
-    //   xhr.onload = function() {
-    //     var text = xhr.responseText;
-    //     // var title = getTitle(text);
-    //     // alert('Response from CORS request to ' + url + ': ' + title);
-    //     console.log(text);
-    //   };
-    //
-    //   xhr.onerror = function() {
-    //     alert('Woops, there was an error making the request.');
-    //   };
-    //
-    //   xhr.send();
-    // }
+    var result = <%= checkResult %>;
+    if (result) {
+      $("#result").text("<%= word %> is a legit word.");
+    } else {
+      $("#result").text("Are you talking Gibberish");
+    }
   </script>
 </body>
 
